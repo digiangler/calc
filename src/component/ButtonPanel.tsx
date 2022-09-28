@@ -1,8 +1,10 @@
+import { ButtonCode } from "../logic/calculate";
+
 export default function ButtonPanel(props: {
-  buttonHandler: (code: string) => void;
+  buttonHandler: (code: ButtonCode) => void;
 }) {
   return (
-    <div>
+    <div className="buttonPanel">
       <div>
         <button onClick={() => props.buttonHandler("7")}>7</button>
         <button onClick={() => props.buttonHandler("8")}>8</button>

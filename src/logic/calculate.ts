@@ -1,4 +1,18 @@
-export function calculate(button: string, state: State): State {
+export type Operator = "+" | "-" | "*" | "/" | "%";
+export type NumberCode =
+  | "0"
+  | "1"
+  | "2"
+  | "3"
+  | "4"
+  | "5"
+  | "6"
+  | "7"
+  | "8"
+  | "9";
+export type ButtonCode = NumberCode | Operator | "." | "D" | "AC" | "=";
+
+export function calculate(button: ButtonCode, state: State): State {
   // 数値かどうか
   if (isNumberButton(button)) {
     return handleNumberButton(button, state);
@@ -33,7 +47,7 @@ export interface State {
   isNextClear: boolean;
 }
 
-function isNumberButton(button: string) {
+function isNumberButton(button: string): button is NumberCode {
   return (
     button === "0" ||
     button === "1" ||
@@ -48,7 +62,7 @@ function isNumberButton(button: string) {
   );
 }
 
-function isOperatorButton(button: string) {
+function isOperatorButton(button: string): button is Operator {
   return button === "+" || button === "-";
 }
 
@@ -68,7 +82,7 @@ function isEqualButton(button: string) {
   return button === "=";
 }
 
-function handleNumberButton(button: string, state: State): State {
+function handleNumberButton(button: NumberCode, state: State): State {
   if (state.isNextClear) {
     return {
       current: button,
@@ -93,7 +107,7 @@ function handleNumberButton(button: string, state: State): State {
   };
 }
 
-function handleOperatorButton(button: string, state: State): State {
+function handleOperatorButton(button: Operator, state: State): State {
   if (state.operator === null) {
     return {
       current: state.current,
